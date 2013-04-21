@@ -27,21 +27,4 @@ class vim {
     source => 'tpope/vim-pathogen'
   }
 
-  file { "/Users/${::boxen_user}/.vim/autoload/pathogen.vim":
-    target  => "/Users/${::boxen_user}/.vim/vim-pathogen/autoload/pathogen.vim",
-    require => [
-      File["/Users/${::boxen_user}/.vim"],
-      File["/Users/${::boxen_user}/.vim/autoload"],
-      File["/Users/${::boxen_user}/.vim/bundle"],
-      Repository["/Users/${::boxen_user}/.vim/vim-pathogen"]
-    ]
-  }
-
-  # Install pathogen into .vimrc
-  file_line { 'load_pathogen':
-    ensure  => present,
-    line    => 'execute pathogen#infect()',
-    path    => "/Users/${::boxen_user}/.vimrc",
-    require => File["/Users/${::boxen_user}/.vimrc"]
-  }
 }
